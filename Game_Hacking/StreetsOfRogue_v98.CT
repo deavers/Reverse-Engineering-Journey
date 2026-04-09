@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Inf HP"</Description>
+      <Options moAlwaysHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+for i=0, memrec.Count-1 do
+  local child = memrec.Child[i]
+  child.Value = '999'    -- Set to 999
+  child.Active = true    -- Freeze
+end
+{$asm}
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+
+for i=0, memrec.Count-1 do
+  local child = memrec.Child[i]
+  child.Active = false
+end
+{$asm}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"HP-1"</Description>
+          <VariableType>Float</VariableType>
+          <Address>"UnityPlayer.dll"+019CFC98</Address>
+          <Offsets>
+            <Offset>AA0</Offset>
+            <Offset>B0</Offset>
+            <Offset>28</Offset>
+            <Offset>B0</Offset>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"HP-2"</Description>
+          <VariableType>Float</VariableType>
+          <Address>"UnityPlayer.dll"+019CFC98</Address>
+          <Offsets>
+            <Offset>AA0</Offset>
+            <Offset>B0</Offset>
+            <Offset>28</Offset>
+            <Offset>B0</Offset>
+            <Offset>18</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>28</ID>
+      <Description>"Inf Money"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : StreetsOfRogue.exe
+  Author : deavers
+}
+
+[ENABLE]
+
+aobscan(INJECT,48 63 80 F0 00 00 00 48 63 4E 58) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rax+000000F0], #99999
+
+code:
+  movsxd  rax,dword ptr [rax+000000F0]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 48 63 80 F0 00 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 257175EC911
+
+257175EC8DF: 48 8B 46 18           - mov rax,[rsi+18]
+257175EC8E3: 0F B6 80 5F 0A 00 00  - movzx eax,byte ptr [rax+00000A5F]
+257175EC8EA: 85 C0                 - test eax,eax
+257175EC8EC: 0F 84 FA 00 00 00     - je 257175EC9EC
+257175EC8F2: 48 8B 46 38           - mov rax,[rsi+38]
+257175EC8F6: 48 8B 80 D0 00 00 00  - mov rax,[rax+000000D0]
+257175EC8FD: 48 85 C0              - test rax,rax
+257175EC900: 0F 84 82 00 00 00     - je 257175EC988
+257175EC906: 48 8B 46 38           - mov rax,[rsi+38]
+257175EC90A: 48 8B 80 D0 00 00 00  - mov rax,[rax+000000D0]
+// ---------- INJECTING HERE ----------
+257175EC911: 48 63 80 F0 00 00 00  - movsxd  rax,dword ptr [rax+000000F0]
+// ---------- DONE INJECTING  ----------
+257175EC918: 48 63 4E 58           - movsxd  rcx,dword ptr [rsi+58]
+257175EC91C: 3B C1                 - cmp eax,ecx
+257175EC91E: 0F 84 C8 00 00 00     - je 257175EC9EC
+257175EC924: 48 8B 46 50           - mov rax,[rsi+50]
+257175EC928: 48 89 45 F0           - mov [rbp-10],rax
+257175EC92C: 48 8B 46 38           - mov rax,[rsi+38]
+257175EC930: 48 8B 88 D0 00 00 00  - mov rcx,[rax+000000D0]
+257175EC937: 48 85 C9              - test rcx,rcx
+257175EC93A: 0F 84 B6 00 00 00     - je 257175EC9F6
+257175EC940: 48 81 C1 F0 00 00 00  - add rcx,000000F0
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"999999 exp after get exp"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : StreetsOfRogue.exe
+  Author : deavers
+}
+
+[ENABLE]
+
+aobscan(INJECT,89 08 85 FF 0F 8D 54 01 00 00) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+  mov ecx, #999999
+
+code:
+  mov [rax],ecx
+  test edi,edi
+
+  jnl INJECT+15E
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 5
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 89 08 85 FF 0F 8D 54 01 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 2571A7E2426
+
+2571A7E23F7: 48 8B 80 B8 05 00 00           - mov rax,[rax+000005B8]
+2571A7E23FE: 48 8B 80 A0 02 00 00           - mov rax,[rax+000002A0]
+2571A7E2405: 48 8B 4E 20                    - mov rcx,[rsi+20]
+2571A7E2409: 48 63 89 CC 0A 00 00           - movsxd  rcx,dword ptr [rcx+00000ACC]
+2571A7E2410: 48 63 C9                       - movsxd  rcx,ecx
+2571A7E2413: 39 48 18                       - cmp [rax+18],ecx
+2571A7E2416: 0F 86 46 14 00 00              - jbe 2571A7E3862
+2571A7E241C: 48 8D 44 88 20                 - lea rax,[rax+rcx*4+20]
+2571A7E2421: 48 63 08                       - movsxd  rcx,dword ptr [rax]
+2571A7E2424: 03 CF                          - add ecx,edi
+// ---------- INJECTING HERE ----------
+2571A7E2426: 89 08                          - mov [rax],ecx
+// ---------- DONE INJECTING  ----------
+2571A7E2428: 85 FF                          - test edi,edi
+2571A7E242A: 0F 8D 54 01 00 00              - jnl 2571A7E2584
+2571A7E2430: 48 8B CD                       - mov rcx,rbp
+2571A7E2433: 48 81 C1 30 FF FF FF           - add rcx,FFFFFFFFFFFFFF30
+2571A7E243A: 48 C7 44 24 20 FF 00 00 00     - mov qword ptr [rsp+20],000000FF
+2571A7E2443: BA FF 00 00 00                 - mov edx,000000FF
+2571A7E2448: 45 33 C0                       - xor r8d,r8d
+2571A7E244B: 45 33 C9                       - xor r9d,r9d
+2571A7E244E: 49 BB A2 65 35 53 56 02 00 00  - mov r11,00000256533565A2
+2571A7E2458: 41 FF D3                       - call r11
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>36</ID>
+      <Description>"99 Potatoes after get some potatoes"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : StreetsOfRogue.exe
+  Author : deavers
+}
+
+[ENABLE]
+
+aobscan(INJECT,48 63 80 AC 04 00 00 48 63) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rax+000004AC], #99
+code:
+  movsxd  rax,dword ptr [rax+000004AC]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 48 63 80 AC 04 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 2500E6B42CA
+
+2500E6B42AB: 00 00                 - add [rax],al
+2500E6B42AD: 00 00                 - add [rax],al
+2500E6B42AF: 00 55 48              - add [rbp+48],dl
+2500E6B42B2: 8B EC                 - mov ebp,esp
+2500E6B42B4: 48 83 EC 30           - sub rsp,30
+2500E6B42B8: 48 89 75 F8           - mov [rbp-08],rsi
+2500E6B42BC: 48 8B F1              - mov rsi,rcx
+2500E6B42BF: 48 8B 46 18           - mov rax,[rsi+18]
+2500E6B42C3: 48 8B 80 C0 05 00 00  - mov rax,[rax+000005C0]
+2500E6B42CA: 48 63 80 AC 04 00 00  - movsxd  rax,dword ptr [rax+000004AC]
+// ---------- INJECTING HERE ----------
+2500E6B42D1: 48 63 4E 40           - movsxd  rcx,dword ptr [rsi+40]
+// ---------- DONE INJECTING  ----------
+2500E6B42D5: 3B C1                 - cmp eax,ecx
+2500E6B42D7: 0F 84 5E 00 00 00     - je 2500E6B433B
+2500E6B42DD: 48 8B 46 38           - mov rax,[rsi+38]
+2500E6B42E1: 48 89 45 F0           - mov [rbp-10],rax
+2500E6B42E5: 48 8B 46 18           - mov rax,[rsi+18]
+2500E6B42E9: 48 8B 88 C0 05 00 00  - mov rcx,[rax+000005C0]
+2500E6B42F0: 48 85 C9              - test rcx,rcx
+2500E6B42F3: 0F 84 4C 00 00 00     - je 2500E6B4345
+2500E6B42F9: 48 81 C1 AC 04 00 00  - add rcx,000004AC
+2500E6B4300: 48 8D 64 24 00        - lea rsp,[rsp+00]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>42</ID>
+      <Description>"Inf Ammo"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : StreetsOfRogue.exe
+  Author : deavers
+}
+
+[ENABLE]
+
+aobscan(INJECT,48 63 80 F0 00 00 00 89 46 60) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+  mov [rax+000000F0], #99
+code:
+  movsxd  rax,dword ptr [rax+000000F0]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 48 63 80 F0 00 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: 2501D76CC87
+
+2501D76CC63: 85 C0                          - test eax,eax
+2501D76CC65: 74 1C                          - je 2501D76CC83
+2501D76CC67: 48 8B 46 48                    - mov rax,[rsi+48]
+2501D76CC6B: 48 8B C8                       - mov rcx,rax
+2501D76CC6E: 33 D2                          - xor edx,edx
+2501D76CC70: 83 38 00                       - cmp dword ptr [rax],00
+2501D76CC73: 66 66 90                       - nop 3
+2501D76CC76: 49 BB 90 7C D1 03 50 02 00 00  - mov r11,0000025003D17C90
+2501D76CC80: 41 FF D3                       - call r11
+2501D76CC83: 48 8B 46 20                    - mov rax,[rsi+20]
+// ---------- INJECTING HERE ----------
+2501D76CC87: 48 63 80 F0 00 00 00           - movsxd  rax,dword ptr [rax+000000F0]
+// ---------- DONE INJECTING  ----------
+2501D76CC8E: 89 46 60                       - mov [rsi+60],eax
+2501D76CC91: E9 7D 00 00 00                 - jmp 2501D76CD13
+2501D76CC96: 48 C7 46 20 00 00 00 00        - mov qword ptr [rsi+20],00000000
+2501D76CC9E: 48 8B 46 40                    - mov rax,[rsi+40]
+2501D76CCA2: 48 8B C8                       - mov rcx,rax
+2501D76CCA5: 83 38 00                       - cmp dword ptr [rax],00
+2501D76CCA8: 48 8D 64 24 00                 - lea rsp,[rsp+00]
+2501D76CCAD: 90                             - nop 
+2501D76CCAE: 49 BB DA B5 42 02 50 02 00 00  - mov r11,000002500242B5DA
+2501D76CCB8: 41 FF D3                       - call r11
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
