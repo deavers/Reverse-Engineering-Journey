@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>21</ID>
+      <Description>"Player Base"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"Engine.dll"+002EAC38</Address>
+      <Offsets>
+        <Offset>30</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"Inf Ammo"</Description>
+      <Options moAlwaysHideChildren="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+for i=0, memrec.Count-1 do
+  local child = memrec.Child[i]
+  child.Value = '999'
+  child.Active = true    -- Freeze value
+end
+{$asm}
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+
+for i=0, memrec.Count-1 do
+  local child = memrec.Child[i]
+  child.Active = false
+end
+{$asm}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>19</ID>
+          <Description>"Ammo"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"Engine.dll"+002EAC38</Address>
+          <Offsets>
+            <Offset>300</Offset>
+            <Offset>2F4</Offset>
+            <Offset>2C4</Offset>
+            <Offset>30</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"Ammo"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"Render.DLL"+0004E73C</Address>
+          <Offsets>
+            <Offset>300</Offset>
+            <Offset>2F4</Offset>
+            <Offset>2C4</Offset>
+            <Offset>78</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>25</ID>
+      <Description>"Inf HP"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return end
+
+for i=0, memrec.Count-1 do
+  local child = memrec.Child[i]
+  child.Value = '999'
+  child.Active = true    -- Freeze value
+end
+{$asm}
+
+[DISABLE]
+{$lua}
+if syntaxcheck then return end
+
+for i=0, memrec.Count-1 do
+  local child = memrec.Child[i]
+  child.Active = false
+end
+{$asm}
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>22</ID>
+          <Description>"Player Base to HP"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"Engine.dll"+002EAC38</Address>
+          <Offsets>
+            <Offset>31C</Offset>
+            <Offset>30</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>26</ID>
+      <Description>"One shoot kill"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{
+  Game   : UnrealTournament.exe
+  Author : deavers
+}
+
+[ENABLE]
+aobscanmodule(INJECT,Core.dll,29 06 8B 45 0C)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(original)
+label(check_enemy)
+
+newmem:
+  push ecx // Save registers
+  push edx
+
+  // 1. GOD MODE (Immortality for player)
+  mov ecx, ["Engine.dll"+002EAC38]
+  test ecx, ecx
+  jz check_enemy          // Pointer not loaded yet, skip
+  mov ecx, [ecx+30]
+  test ecx, ecx
+  jz check_enemy
+  add ecx, 31C            // ECX = Player HP address
+
+  cmp esi, ecx
+  jne check_enemy         // Not hitting player, check if enemy
+
+  // Player is being hit:
+  xor eax, eax            // Damage = 0
+  jmp original
+
+check_enemy:
+  // 2. ONE-SHOT (Smart enemy filter)
+
+  // Rule A: Is the subtracted value (damage) greater than 1?
+  // (Protects ammo counters and timers that subtract exactly 1)
+  cmp eax, 1
+  jle original
+
+  // Rule B: Is target value in valid range? (1 to 1000)
+  // (Prevents accidental one-shot of system coordinates or match timers)
+  cmp dword ptr [esi], 1000
+  ja original             // Target has more than 1000 HP - skip
+  cmp dword ptr [esi], 0
+  jle original            // Target already dead (0 or below) - skip
+
+  // All checks passed - confirmed enemy hit
+  mov eax, #300           // Deal 300 damage
+
+original:
+  pop edx                 // Restore registers
+  pop ecx
+code:
+  sub [esi],eax           // Original instruction (EAX already modified)
+  mov eax,[ebp+0C]        // Original code
+  jmp return
+
+INJECT:
+  jmp newmem
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+INJECT:
+  db 29 06 8B 45 0C
+unregistersymbol(INJECT)
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
