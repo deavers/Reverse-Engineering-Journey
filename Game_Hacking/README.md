@@ -9,6 +9,7 @@ All scripts use AOB injection or Lua — tested with **Cheat Engine 7.x**.
 
 - [Unreal Tournament GOTY (1999)](#unreal-tournament-goty-1999)
 - [Streets of Rogue (v98)](#streets-of-rogue-v98)
+- [Plants vs. Zombies GOTY](#plants-vs-zombies-goty)
 
 ---
 
@@ -41,16 +42,19 @@ All scripts use AOB injection or Lua — tested with **Cheat Engine 7.x**.
 
 ---
 
-<!-- TEMPLATE ДЛЯ НОВОЙ ИГРЫ — скопируй блок ниже
-## Название Игры (версия)
+## Plants vs. Zombies GOTY
 
 | Feature | Type | Notes |
-|---|---|---|
-| Функция 1 | AOB Inject / Lua freeze / Pointer | Описание |
+| :--- | :--- | :--- |
+| Infinite Sun | AOB Inject | Forces sun count to 999 |
+| Instant Recharge | AOB Inject | Skips seed packet cooldowns |
+| Immortal Plants | AOB Inject | Nullifies zombie damage to plants |
+| One Hit Kill | AOB Inject | Instakills Normal and Conehead zombies |
+| Infinite Money | AOB Inject | Sets Crazy Dave's shop coins to 999,990 |
+| Speed Controller | Lua Script | Custom UI dropdown for game speedhack |
 
-**File:** `НазваниеФайла.CT`  
-**Engine:** 32/64-bit, движок, модули
--->
+**File:** `PlantsVsZombies.CT`  
+**Engine:** 32-bit (x86), PopCap Framework (`popcapgame1.exe`)
 
 ---
 
