@@ -10,6 +10,7 @@ All scripts use AOB injection or Lua — tested with **Cheat Engine 7.x**.
 - [Unreal Tournament GOTY (1999)](#unreal-tournament-goty-1999)
 - [Streets of Rogue (v98)](#streets-of-rogue-v98)
 - [Plants vs. Zombies GOTY](#plants-vs-zombies-goty)
+- [The Binding of Isaac: Repentance+](#the-binding-of-isaac-repentance)
 
 ---
 
@@ -55,6 +56,21 @@ All scripts use AOB injection or Lua — tested with **Cheat Engine 7.x**.
 
 **File:** `PlantsVsZombies.CT`  
 **Engine:** 32-bit (x86), PopCap Framework (`popcapgame1.exe`)
+
+---
+
+## The Binding of Isaac: Repentance+
+
+| Feature | Type | Notes |
+| :--- | :--- | :--- |
+| Infinite Resources | AOB Inject | Locks Money, Bombs, and Keys to 99 |
+| Infinite Health | AOB Inject | Locks Red and Armor Hearts to maximum |
+| Inf Item Charges | AOB Inject | Active item bypasses recharge cycle |
+| Stats AOB Lock | AOB Inject | Overrides room-transition resets for DMG, Speed, and Tears |
+| Player Structure | Data Structure | Fully mapped `Entity_Player` float offsets |
+
+**File:** `IsaacRepentance.CT`  
+**Engine:** 32-bit (x86), Custom Engine (`isaac-ng.exe`)
 
 ---
 
