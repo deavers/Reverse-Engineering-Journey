@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>35</ID>
+      <Description>"Armor Hearts"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : isaac-ng.exe
+  Version: 
+  Date   : 2026-04-15
+  Author : deavers
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,isaac-ng.exe,D2 8B 88 4C 13 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [eax+0000134C],#20
+code:
+  mov ecx,[eax+0000134C]
+  jmp return
+
+INJECT+01:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT+01:
+  db 8B 88 4C 13 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "isaac-ng.exe"+5BB27E
+
+"isaac-ng.exe"+5BB261: 85 C0                 - test eax,eax
+"isaac-ng.exe"+5BB263: 75 14                 - jne "isaac-ng.exe"+5BB279
+"isaac-ng.exe"+5BB265: 68 5C E7 C7 00        - push "isaac-ng.exe"+77E75C
+"isaac-ng.exe"+5BB26A: 6A 10                 - push 10
+"isaac-ng.exe"+5BB26C: E8 0F 64 05 00        - call "isaac-ng.exe"+611680
+"isaac-ng.exe"+5BB271: 8B 0F                 - mov ecx,[edi]
+"isaac-ng.exe"+5BB273: 83 C4 08              - add esp,08
+"isaac-ng.exe"+5BB276: 8B 55 E8              - mov edx,[ebp-18]
+"isaac-ng.exe"+5BB279: 8B 01                 - mov eax,[ecx]
+"isaac-ng.exe"+5BB27B: 0F B6 D2              - movzx edx,dl
+// ---------- INJECTING HERE ----------
+"isaac-ng.exe"+5BB27E: 8B 88 4C 13 00 00     - mov ecx,[eax+0000134C]
+// ---------- DONE INJECTING  ----------
+"isaac-ng.exe"+5BB284: 03 88 44 13 00 00     - add ecx,[eax+00001344]
+"isaac-ng.exe"+5BB28A: 33 C0                 - xor eax,eax
+"isaac-ng.exe"+5BB28C: 83 F9 03              - cmp ecx,03
+"isaac-ng.exe"+5BB28F: 0F 42 D0              - cmovb edx,eax
+"isaac-ng.exe"+5BB292: A1 F8 17 D7 00        - mov eax,["isaac-ng.exe"+8717F8]
+"isaac-ng.exe"+5BB297: 83 B8 30 66 02 00 00  - cmp dword ptr [eax+00026630],00
+"isaac-ng.exe"+5BB29E: 0F 86 41 01 00 00     - jbe "isaac-ng.exe"+5BB3E5
+"isaac-ng.exe"+5BB2A4: 84 DB                 - test bl,bl
+"isaac-ng.exe"+5BB2A6: 0F 85 2F 02 00 00     - jne "isaac-ng.exe"+5BB4DB
+"isaac-ng.exe"+5BB2AC: A1 18 7B D5 00        - mov eax,["isaac-ng.exe"+857B18]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>41</ID>
+      <Description>"Red Hearts"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : isaac-ng.exe
+  Version: 
+  Date   : 2026-04-15
+  Author : deavers
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,isaac-ng.exe,03 88 44 13 00 00 33 C0 83 F9 03) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [eax+00001340], #20
+  mov [eax+00001344], #20
+code:
+  add ecx,[eax+00001344]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 03 88 44 13 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "isaac-ng.exe"+5BB284
+
+"isaac-ng.exe"+5BB263: 75 14                 - jne "isaac-ng.exe"+5BB279
+"isaac-ng.exe"+5BB265: 68 5C E7 C7 00        - push "isaac-ng.exe"+77E75C
+"isaac-ng.exe"+5BB26A: 6A 10                 - push 10
+"isaac-ng.exe"+5BB26C: E8 0F 64 05 00        - call "isaac-ng.exe"+611680
+"isaac-ng.exe"+5BB271: 8B 0F                 - mov ecx,[edi]
+"isaac-ng.exe"+5BB273: 83 C4 08              - add esp,08
+"isaac-ng.exe"+5BB276: 8B 55 E8              - mov edx,[ebp-18]
+"isaac-ng.exe"+5BB279: 8B 01                 - mov eax,[ecx]
+"isaac-ng.exe"+5BB27B: 0F B6 D2              - movzx edx,dl
+"isaac-ng.exe"+5BB27E: 8B 88 4C 13 00 00     - mov ecx,[eax+0000134C]
+// ---------- INJECTING HERE ----------
+"isaac-ng.exe"+5BB284: 03 88 44 13 00 00     - add ecx,[eax+00001344]
+// ---------- DONE INJECTING  ----------
+"isaac-ng.exe"+5BB28A: 33 C0                 - xor eax,eax
+"isaac-ng.exe"+5BB28C: 83 F9 03              - cmp ecx,03
+"isaac-ng.exe"+5BB28F: 0F 42 D0              - cmovb edx,eax
+"isaac-ng.exe"+5BB292: A1 F8 17 D7 00        - mov eax,["isaac-ng.exe"+8717F8]
+"isaac-ng.exe"+5BB297: 83 B8 30 66 02 00 00  - cmp dword ptr [eax+00026630],00
+"isaac-ng.exe"+5BB29E: 0F 86 41 01 00 00     - jbe "isaac-ng.exe"+5BB3E5
+"isaac-ng.exe"+5BB2A4: 84 DB                 - test bl,bl
+"isaac-ng.exe"+5BB2A6: 0F 85 2F 02 00 00     - jne "isaac-ng.exe"+5BB4DB
+"isaac-ng.exe"+5BB2AC: A1 18 7B D5 00        - mov eax,["isaac-ng.exe"+857B18]
+"isaac-ng.exe"+5BB2B1: 8D 4D DC              - lea ecx,[ebp-24]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>37</ID>
+      <Description>"Inf Bombs"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : isaac-ng.exe
+  Version: 
+  Date   : 2026-04-15
+  Author : deavers
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,isaac-ng.exe,FF B6 64 13 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [esi+00001364],#99
+code:
+  push [esi+00001364]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db FF B6 64 13 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "isaac-ng.exe"+5A4B35
+
+"isaac-ng.exe"+5A4B07: 8D 8F E4 3A 00 00              - lea ecx,[edi+00003AE4]
+"isaac-ng.exe"+5A4B0D: E8 CE 45 A6 FF                 - call "isaac-ng.exe"+90E0
+"isaac-ng.exe"+5A4B12: 68 C0 B7 D7 00                 - push "isaac-ng.exe"+87B7C0
+"isaac-ng.exe"+5A4B17: 68 C0 B7 D7 00                 - push "isaac-ng.exe"+87B7C0
+"isaac-ng.exe"+5A4B1C: 8D 45 88                       - lea eax,[ebp-78]
+"isaac-ng.exe"+5A4B1F: 50                             - push eax
+"isaac-ng.exe"+5A4B20: 8D 8F B4 3A 00 00              - lea ecx,[edi+00003AB4]
+"isaac-ng.exe"+5A4B26: E8 75 58 A6 FF                 - call "isaac-ng.exe"+A3A0
+"isaac-ng.exe"+5A4B2B: F3 0F 10 45 80                 - movss xmm0,[ebp-80]
+"isaac-ng.exe"+5A4B30: F3 0F 58 45 88                 - addss xmm0,[ebp-78]
+// ---------- INJECTING HERE ----------
+"isaac-ng.exe"+5A4B35: FF B6 64 13 00 00              - push [esi+00001364]
+// ---------- DONE INJECTING  ----------
+"isaac-ng.exe"+5A4B3B: 68 4C DE C7 00                 - push "isaac-ng.exe"+77DE4C
+"isaac-ng.exe"+5A4B40: 6A 10                          - push 10
+"isaac-ng.exe"+5A4B42: F3 0F 11 45 98                 - movss [ebp-68],xmm0
+"isaac-ng.exe"+5A4B47: F3 0F 10 85 7C FF FF FF        - movss xmm0,[ebp-00000084]
+"isaac-ng.exe"+5A4B4F: F3 0F 58 45 8C                 - addss xmm0,[ebp-74]
+"isaac-ng.exe"+5A4B54: 68 A8 44 D9 00                 - push "isaac-ng.exe"+8944A8
+"isaac-ng.exe"+5A4B59: F3 0F 11 45 9C                 - movss [ebp-64],xmm0
+"isaac-ng.exe"+5A4B5E: E8 6D 9B A7 FF                 - call "isaac-ng.exe"+1E6D0
+"isaac-ng.exe"+5A4B63: 83 C4 10                       - add esp,10
+"isaac-ng.exe"+5A4B66: C7 85 20 FF FF FF 00 00 00 00  - mov [ebp-000000E0],00000000
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>39</ID>
+      <Description>"Inf Money"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : isaac-ng.exe
+  Version: 
+  Date   : 2026-04-15
+  Author : deavers
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,isaac-ng.exe,8B B0 68 13 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [eax+00001368], #99
+code:
+  mov esi,[eax+00001368]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 8B B0 68 13 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "isaac-ng.exe"+5A49A1
+
+"isaac-ng.exe"+5A4970: F3 0F 10 4D 98           - movss xmm1,[ebp-68]
+"isaac-ng.exe"+5A4975: F3 0F 10 45 80           - movss xmm0,[ebp-80]
+"isaac-ng.exe"+5A497A: F3 0F 58 45 88           - addss xmm0,[ebp-78]
+"isaac-ng.exe"+5A497F: 8B 0D F8 17 D7 00        - mov ecx,["isaac-ng.exe"+8717F8]
+"isaac-ng.exe"+5A4985: 8B 85 54 FF FF FF        - mov eax,[ebp-000000AC]
+"isaac-ng.exe"+5A498B: 81 C1 A8 BA 01 00        - add ecx,0001BAA8
+"isaac-ng.exe"+5A4991: 6A 01                    - push 01
+"isaac-ng.exe"+5A4993: 51                       - push ecx
+"isaac-ng.exe"+5A4994: F3 0F 11 45 98           - movss [ebp-68],xmm0
+"isaac-ng.exe"+5A4999: F3 0F 10 85 7C FF FF FF  - movss xmm0,[ebp-00000084]
+// ---------- INJECTING HERE ----------
+"isaac-ng.exe"+5A49A1: 8B B0 68 13 00 00        - mov esi,[eax+00001368]
+// ---------- DONE INJECTING  ----------
+"isaac-ng.exe"+5A49A7: F3 0F 58 C1              - addss xmm0,xmm1
+"isaac-ng.exe"+5A49AB: 68 A0 01 00 00           - push 000001A0
+"isaac-ng.exe"+5A49B0: F3 0F 11 45 9C           - movss [ebp-64],xmm0
+"isaac-ng.exe"+5A49B5: E8 96 9A 01 00           - call "isaac-ng.exe"+5BE450
+"isaac-ng.exe"+5A49BA: 85 C0                    - test eax,eax
+"isaac-ng.exe"+5A49BC: BA 4C DE C7 00           - mov edx,"isaac-ng.exe"+77DE4C
+"isaac-ng.exe"+5A49C1: B9 30 D2 C6 00           - mov ecx,"isaac-ng.exe"+76D230
+"isaac-ng.exe"+5A49C6: 56                       - push esi
+"isaac-ng.exe"+5A49C7: 0F 44 CA                 - cmove ecx,edx
+"isaac-ng.exe"+5A49CA: 51                       - push ecx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>43</ID>
+      <Description>"Inf Keys"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : isaac-ng.exe
+  Version: 
+  Date   : 2026-04-15
+  Author : deavers
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,isaac-ng.exe,FF B0 5C 13 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [eax+0000135C], #99
+code:
+  push [eax+0000135C]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db FF B0 5C 13 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "isaac-ng.exe"+5A4E4B
+
+"isaac-ng.exe"+5A4E1D: E8 DE 54 A6 FF                 - call "isaac-ng.exe"+A300
+"isaac-ng.exe"+5A4E22: 8D 8F 04 3B 00 00              - lea ecx,[edi+00003B04]
+"isaac-ng.exe"+5A4E28: 68 C0 B7 D7 00                 - push "isaac-ng.exe"+87B7C0
+"isaac-ng.exe"+5A4E2D: 68 C0 B7 D7 00                 - push "isaac-ng.exe"+87B7C0
+"isaac-ng.exe"+5A4E32: 8D 45 88                       - lea eax,[ebp-78]
+"isaac-ng.exe"+5A4E35: 50                             - push eax
+"isaac-ng.exe"+5A4E36: E8 C5 54 A6 FF                 - call "isaac-ng.exe"+A300
+"isaac-ng.exe"+5A4E3B: F3 0F 10 45 80                 - movss xmm0,[ebp-80]
+"isaac-ng.exe"+5A4E40: F3 0F 58 45 88                 - addss xmm0,[ebp-78]
+"isaac-ng.exe"+5A4E45: 8B 85 54 FF FF FF              - mov eax,[ebp-000000AC]
+// ---------- INJECTING HERE ----------
+"isaac-ng.exe"+5A4E4B: FF B0 5C 13 00 00              - push [eax+0000135C]
+// ---------- DONE INJECTING  ----------
+"isaac-ng.exe"+5A4E51: F3 0F 11 45 98                 - movss [ebp-68],xmm0
+"isaac-ng.exe"+5A4E56: F3 0F 10 85 7C FF FF FF        - movss xmm0,[ebp-00000084]
+"isaac-ng.exe"+5A4E5E: F3 0F 58 45 8C                 - addss xmm0,[ebp-74]
+"isaac-ng.exe"+5A4E63: 68 4C DE C7 00                 - push "isaac-ng.exe"+77DE4C
+"isaac-ng.exe"+5A4E68: 6A 10                          - push 10
+"isaac-ng.exe"+5A4E6A: 68 A8 44 D9 00                 - push "isaac-ng.exe"+8944A8
+"isaac-ng.exe"+5A4E6F: F3 0F 11 45 9C                 - movss [ebp-64],xmm0
+"isaac-ng.exe"+5A4E74: E8 57 98 A7 FF                 - call "isaac-ng.exe"+1E6D0
+"isaac-ng.exe"+5A4E79: 83 C4 10                       - add esp,10
+"isaac-ng.exe"+5A4E7C: C7 85 20 FF FF FF 00 00 00 00  - mov [ebp-000000E0],00000000
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>40</ID>
+      <Description>"No description"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>78F4C468</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>44</ID>
+      <Description>"DMG"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>Float</VariableType>
+      <Address>78F4C594</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>100</ID>
+      <Description>"DMG (AOB Lock)"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(INJECT_DMG,isaac-ng.exe,F3 0F 10 88 70 14 00 00 E8)
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(MyDamage)
+
+newmem:
+  push edx
+  mov edx, [MyDamage]
+  mov [eax+00001470], edx
+  pop edx
+code:
+  movss xmm1,[eax+00001470]
+  jmp return
+
+MyDamage:
+  dd (float)100.0
+
+INJECT_DMG:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(INJECT_DMG)
+registersymbol(MyDamage)
+
+[DISABLE]
+INJECT_DMG:
+  db F3 0F 10 88 70 14 00 00
+unregistersymbol(INJECT_DMG)
+unregistersymbol(MyDamage)
+dealloc(newmem)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>101</ID>
+          <Description>"---&gt; Set Custom Damage Here"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>MyDamage</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>105</ID>
+      <Description>"Inf Use Percs"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : isaac-ng.exe
+  Version: 
+  Date   : 2026-04-15
+  Author : deavers
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,isaac-ng.exe,03 B4 08 88 15 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  mov [eax+ecx+00001588], #110
+code:
+  add esi,[eax+ecx+00001588]
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 2
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 03 B4 08 88 15 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "isaac-ng.exe"+3913A4
+
+"isaac-ng.exe"+39138E: CC                    - int 3 
+"isaac-ng.exe"+39138F: CC                    - int 3 
+"isaac-ng.exe"+391390: 55                    - push ebp
+"isaac-ng.exe"+391391: 8B EC                 - mov ebp,esp
+"isaac-ng.exe"+391393: 8B 55 08              - mov edx,[ebp+08]
+"isaac-ng.exe"+391396: 8B C2                 - mov eax,edx
+"isaac-ng.exe"+391398: C1 E0 05              - shl eax,05
+"isaac-ng.exe"+39139B: 56                    - push esi
+"isaac-ng.exe"+39139C: 57                    - push edi
+"isaac-ng.exe"+39139D: 8B B4 08 8C 15 00 00  - mov esi,[eax+ecx+0000158C]
+// ---------- INJECTING HERE ----------
+"isaac-ng.exe"+3913A4: 03 B4 08 88 15 00 00  - add esi,[eax+ecx+00001588]
+// ---------- DONE INJECTING  ----------
+"isaac-ng.exe"+3913AB: 8B 81 C0 13 00 00     - mov eax,[ecx+000013C0]
+"isaac-ng.exe"+3913B1: 83 F8 12              - cmp eax,12
+"isaac-ng.exe"+3913B4: 75 08                 - jne "isaac-ng.exe"+3913BE
+"isaac-ng.exe"+3913B6: 8B B9 A8 1D 00 00     - mov edi,[ecx+00001DA8]
+"isaac-ng.exe"+3913BC: EB 0D                 - jmp "isaac-ng.exe"+3913CB
+"isaac-ng.exe"+3913BE: 33 FF                 - xor edi,edi
+"isaac-ng.exe"+3913C0: 83 F8 24              - cmp eax,24
+"isaac-ng.exe"+3913C3: 75 06                 - jne "isaac-ng.exe"+3913CB
+"isaac-ng.exe"+3913C5: 8B B9 AC 1D 00 00     - mov edi,[ecx+00001DAC]
+"isaac-ng.exe"+3913CB: 8D 82 AC 00 00 00     - lea eax,[edx+000000AC]
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>102</ID>
+      <Description>"Speed (AOB Lock)"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(INJECT_SPEED,isaac-ng.exe,F3 0F 10 8A 68 15 00 00 8D 8E)
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(MySpeed)
+
+newmem:
+  push eax
+  mov eax, [MySpeed]
+  mov [edx+00001568], eax
+  pop eax
+code:
+  movss xmm1,[edx+00001568]
+  jmp return
+
+MySpeed:
+  dd (float)2.0
+
+INJECT_SPEED:
+  jmp newmem
+  nop
+  nop
+  nop
+return:
+registersymbol(INJECT_SPEED)
+registersymbol(MySpeed)
+
+[DISABLE]
+INJECT_SPEED:
+  db F3 0F 10 8A 68 15 00 00
+unregistersymbol(INJECT_SPEED)
+unregistersymbol(MySpeed)
+dealloc(newmem)
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>103</ID>
+          <Description>"---&gt; Set Custom Speed Here"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>MySpeed</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>106</ID>
+      <Description>"No description"</Description>
+      <VariableType>Float</VariableType>
+      <Address>629D54E8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>107</ID>
+      <Description>"Tears (AOB Lock)"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+aobscanmodule(INJECT_TEARS,isaac-ng.exe,F3 0F 10 44 B3 04 8D 45 E0)
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(MyTears)
+
+newmem:
+  // Проверяем: игра сейчас читает стат с индексом 5 (Слезы)?
+  cmp esi, 05
+  jne code
+
+  // Если да, замораживаем наше значение перед тем, как игра его прочитает
+  push eax
+  mov eax, [MyTears]
+  mov [ebx+esi*4+04], eax
+  pop eax
+
+code:
+  // Оригинальная инструкция чтения
+  movss xmm0,[ebx+esi*4+04]
+  jmp return
+
+MyTears:
+  dd (float)15.0
+
+INJECT_TEARS:
+  jmp newmem
+  nop
+return:
+registersymbol(INJECT_TEARS)
+registersymbol(MyTears)
+
+[DISABLE]
+INJECT_TEARS:
+  db F3 0F 10 44 B3 04
+unregistersymbol(INJECT_TEARS)
+unregistersymbol(MyTears)
+dealloc(newmem)
+
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>108</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>Float</VariableType>
+          <Address>MyTears</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>speedhack_wantedspeed</Name>
+      <Address>018C0000</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+</CheatTable>
