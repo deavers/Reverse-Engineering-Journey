@@ -1,32 +1,44 @@
 # Reverse-Engineering-Journey
-A collection of my reverse engineering experiments. Documenting my journey from game hacking to low-level software analysis.
 
----
+> A public log of my reverse-engineering practice — from game hacking to low-level binary analysis. Every experiment is documented with the same write-up format so progress is verifiable, not claimed.
 
-## Repository Structure
+## What this is
 
-| Folder | Description |
-|--------|-------------|
-| `Game_Hacking/` | Projects and experiments related to game hacking techniques such as memory reading/writing, speed hacks, and ESP overlays — all performed in single-player environments. |
-| `Course_Solutions/` | Walkthroughs and solutions for reverse engineering courses and tutorials I have completed. |
-| `Tools_and_Scripts/` | Utility scripts and helper tools written to assist with reverse engineering tasks. |
-| `Crackmes_and_CTF/` | Solutions and write-ups for crackme challenges and Capture The Flag (CTF) competitions focused on reverse engineering. |
+I'm a CS student at VŠB-TUO (FEI) focusing on cybersecurity and digital forensics. This repository is where I practice the craft: taking binaries apart, understanding what they do, and writing it down so others (and future me) can reproduce it.
 
----
+## Write-up format
 
-## Tools Used
+Every solved task follows a fixed five-part template:
 
-- **Cheat Engine** — Memory scanner and debugger used to inspect and modify game memory at runtime.
-- **x64dbg** — Open-source x86/x64 debugger for Windows, used for dynamic analysis and patching of binaries.
-- **Assembly (x86/x64)** — Low-level programming language used to read, understand, and write patches directly at the instruction level.
+1. **Given** — file type, alphabet of content, magic bytes
+2. **Hypothesis** — what I think the protection/encoding is before touching tools
+3. **Tool** — Ghidra / gdb+pwndbg / CyberChef / binwalk / exiftool / steghide
+4. **Command & observation** — exact steps, key output
+5. **Conclusion** — what it actually was, what I learned
 
----
+## Repository layout
 
-## Disclaimer
+```
+Course_Solutions/    write-ups of course/training tasks
+Crackmes_and_CTF/    crackmes and CTF challenges (picoCTF & co.)
+Game_Hacking/        local, offline experiments with process memory of old games
+Tools_and_Scripts/   helpers written along the way (Python/Bash)
+```
 
-> **All code, scripts, and techniques in this repository are strictly for educational purposes only.**
->
-> - Every game hacking technique demonstrated here is used exclusively in **single-player, offline environments** and is **never** applied to online, multiplayer, or competitive games.
-> - The contents of this repository are not intended to facilitate cheating, piracy, unauthorized access, or any other illegal activity.
-> - The author is not responsible for any misuse of the information provided. Use at your own risk and always comply with the terms of service of any software you interact with, as well as all applicable local laws and regulations.
-> - This project is a personal learning journal. Reverse engineering skills are valuable for security research, malware analysis, and software development — always apply them ethically and responsibly.
+## Toolbox
+
+`Ghidra` · `gdb / pwndbg` · `CyberChef` · `binwalk` · `exiftool` · `steghide` · `zbar` — on EndeavourOS (KDE/Wayland) and Windows 11
+
+## Progress log
+
+| Date | Task | Category | Key technique |
+|---|---|---|---|
+| 2026 | _Hidden Cipher 1_ (picoCTF) | RE / packing | UPX unpack + XOR key extraction |
+| 2026 | _Binary Digits_ (picoCTF) | Forensics | binary → bytes → JPEG (JFIF signature) |
+| 2026 | _Gatekeeper_ (picoCTF) | RE | hex-gate validation, deobfuscation |
+
+## Ground rules
+
+- All experiments are local and offline (own binaries, CTF targets, old offline games)
+- No live services, no third-party servers, no anti-cheat bypassing
+- Write-ups teach the method, not just the answer
